@@ -1,0 +1,431 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import '../../fonts/lato/lato.css';
+@import '../../fonts/icomoon/style.css';
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: white;
+  font-size: 10px;
+  font-family: "Lato", Calibri, Arial, sans-serif;
+}
+
+.calendar-section {
+  height: 100vh;
+}
+
+.calendar {
+  padding: 20px;
+  background: linear-gradient(135deg, #5050d7, #c83c8c);
+  user-select: none;
+}
+.calendar__head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 30px;
+  font-weight: 300;
+}
+.calendar__head-caption {
+  font-size: 30px;
+  font-weight: 300;
+}
+.calendar__head-month-selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  font-size: 20px;
+  line-height: 30px;
+}
+.calendar__head-month-selection-next, .calendar__head-month-selection-prev {
+  font-size: 16px;
+  cursor: pointer;
+}
+.calendar__body {
+  border: 1px solid white;
+  border-radius: 20px;
+  height: 500px;
+  overflow: hidden;
+  font-size: 20px;
+}
+.calendar__body.calendar__body_four-weaks .calendar__body-week {
+  height: 115px;
+}
+.calendar__body.calendar__body_five-weaks .calendar__body-week {
+  height: 92px;
+}
+.calendar__body.calendar__body_six-weaks .calendar__body-week {
+  height: 76.6666666667px;
+}
+.calendar__body-head {
+  display: flex;
+  background: rgba(255, 255, 255, 0.25);
+  height: 40px;
+  text-align: center;
+}
+.calendar__body-head-day-name {
+  flex-basis: calc(100% / 7);
+  font-size: 16px;
+  line-height: 40px;
+  font-weight: 500;
+}
+.calendar__body-week {
+  display: flex;
+}
+.calendar__body-week-day {
+  flex-basis: calc(100% / 7);
+  padding: 10px;
+  border-top: 1px solid white;
+  font-weight: 300;
+}
+.calendar__body-week-day + .calendar__body-week-day {
+  border-left: 1px solid white;
+}
+.calendar__body-week-day.calendar__body-week-day_current, .calendar__body-week-day:hover {
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+.calendar__foot {
+  padding: 15px 20px 0px;
+}
+.calendar__foot-add-btn {
+  position: relative;
+  width: 200px;
+  font-size: 16px;
+  text-align: start;
+}
+.calendar__foot-add-btn > .icon-add-outline {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  font-size: 22px;
+}
+.add-event-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 400px;
+  background: linear-gradient(135deg, #5050d7, #c83c8c);
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: 300;
+  user-select: none;
+}
+.add-event-block__title {
+  margin: 0px 0px 40px;
+  font-size: 30px;
+  font-weight: 400;
+}
+.add-event-block__form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 12px;
+}
+.add-event-block__form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0px 0px 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+.add-event-block__form-field:before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: all 0.5s;
+}
+.add-event-block__form-field.add-event-block__form-field_active:before {
+  width: 100%;
+}
+.add-event-block__form-field.add-event-block__form-field_hidden {
+  display: none;
+}
+.add-event-block__form-field.add-event-block__form-field_invalid {
+  color: yellow;
+  border-bottom-color: yellow;
+}
+.add-event-block__form-field.add-event-block__form-field_invalid:before {
+  background: yellow;
+  transition: none;
+}
+.add-event-block__form-field-input {
+  outline: none;
+  background: none;
+  border: none;
+  padding: 10px;
+  width: 300px;
+  color: white;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 300;
+}
+.add-event-block__form-field-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.add-event-block__form-buttons {
+  align-self: center;
+  margin: 20px 0px 0px;
+}
+.btn {
+  appearance: none;
+  padding: 8px 16px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background: none;
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+}
+.btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.btn:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+}
+.btn:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal__content {
+  z-index: 3;
+}
+.modal.modal_hidden {
+  display: none;
+}
+.modal.modal_with-close-area:after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.events-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 40px;
+  width: 400px;
+  background: linear-gradient(135deg, #5050d7, #c83c8c);
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: 300;
+  user-select: none;
+}
+.events-block__title {
+  margin: 0px 0px 40px;
+  font-size: 30px;
+  font-weight: 400;
+}
+.events-block__list {
+  width: 285px;
+}
+.events-block__list-element {
+  position: relative;
+  border: 1px solid white;
+  border-top: none;
+  border-radius: 5px;
+}
+.events-block__list-element + .events-block__list-element {
+  margin-top: 30px;
+}
+.events-block__list-element-time {
+  position: absolute;
+  z-index: 0;
+  top: -6px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  height: 100%;
+  font-size: 11px;
+}
+.events-block__list-element-time:before, .events-block__list-element-time:after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  margin-top: 5px;
+  width: calc(50% - 25px);
+  height: 100%;
+  border-top: 1px solid white;
+  border-radius: 5px;
+}
+.events-block__list-element-time:before {
+  left: 0;
+  border-top-right-radius: 0px;
+}
+.events-block__list-element-time:after {
+  right: 0;
+  border-top-left-radius: 0px;
+}
+.events-block__list-element-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10px;
+}
+.events-block__list-element-info-event-name {
+  font-size: 14px;
+  max-width: 80%;
+}
+.events-block__list-element-info-delete-btn {
+  appearance: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 22px;
+  font-family: inherit;
+  border: none;
+  border-radius: 24px;
+  height: 24px;
+  width: 24px;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+.events-block__list-element-info-delete-btn:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.events-block__list-element-info-delete-btn:focus {
+  color: rgba(255, 255, 255, 0.8);
+  outline: none;
+}
+.events-block__list-element-info-delete-btn:active {
+  color: white;
+}
+.events-block__buttons {
+  display: flex;
+  align-items: center;
+  margin: 30px 0px 10px;
+}
+.events-block__buttons-add {
+  appearance: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 32px;
+  font-family: inherit;
+  border: none;
+  border-radius: 34px;
+  height: 34px;
+  width: 34px;
+  position: relative;
+  margin: 0px 30px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+.events-block__buttons-add:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+.events-block__buttons-add:focus {
+  color: rgba(255, 255, 255, 0.8);
+  outline: none;
+}
+.events-block__buttons-add:active {
+  color: white;
+}
+.confirm-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  width: 200px;
+  background: linear-gradient(135deg, #5050d7, #c83c8c);
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: 300;
+  text-align: center;
+  user-select: none;
+}
+.confirm-block__message {
+  font-size: 16px;
+}
+.confirm-block__buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+  width: 100px;
+}
+
+/*# sourceMappingURL=style.css.map */

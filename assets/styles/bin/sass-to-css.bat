@@ -1,0 +1,1 @@
+sass .\assets\styles\sass\index.scss .\assets\styles\css\style.css

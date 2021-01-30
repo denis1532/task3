@@ -1,0 +1,168 @@
+@import '../constants.scss';
+
+.events-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 40px;
+
+  width: 400px;
+
+  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
+  border: 2px solid white;
+  border-radius: 10px;
+  
+  font-weight: 300;
+
+  user-select: none;
+
+  &__title {
+    margin: 0px 0px 40px;
+
+    font-size: 30px;
+    font-weight: 400;
+  }
+  &__list {
+    width: 285px;
+  }
+  &__list-element {
+    position: relative;
+
+    border: 1px solid white;
+    border-top: none;
+    border-radius: 5px;
+
+    & + & {
+      margin-top: 30px;
+    }
+  }
+  &__list-element-time {
+    position: absolute;
+    z-index: 0;
+    top: -6px;
+    right: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+    height: 100%;
+
+    font-size: 11px;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+
+      display: inline-block;
+      margin-top: 5px;
+
+      width: calc(50% - 25px);
+      height: 100%;
+
+      border-top: 1px solid white;
+      border-radius: 5px;
+    }
+    &:before {
+      left: 0;
+      border-top-right-radius: 0px;
+    }
+    &:after {
+      right: 0;
+      border-top-left-radius: 0px;
+    }
+  }
+  &__list-element-info {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 10px;
+  }
+  &__list-element-info-event-name {
+    font-size: 14px;
+    max-width: 80%;
+  }
+  &__list-element-info-delete-btn {
+    appearance: none;
+      
+    background: none;
+    color: transparentize(white, 0.4);
+
+    $fs: 22px;
+    font-size: $fs;
+    font-family: inherit;
+    
+    border: none;
+    border-radius: $fs + 2px;
+    
+    height: $fs + 2px;
+    width: $fs + 2px;
+  
+    position: relative;
+    padding: 0;
+
+    overflow: hidden;
+      
+    cursor: pointer;
+
+    &:hover {
+      color: transparentize(white, 0.2);
+    }
+    &:focus {
+      color: transparentize(white, 0.2);
+      outline: none;
+    }
+    &:active {
+      color: white;
+    }
+  }
+  &__buttons {
+    display: flex;
+    align-items: center;
+    margin: 30px 0px 10px;
+  }
+  &__buttons-prev {
+  }
+  &__buttons-add {
+    appearance: none;
+      
+    background: none;
+    color: transparentize(white, 0.4);
+
+    $fs: 32px;
+    font-size: $fs;
+    font-family: inherit;
+    
+    border: none;
+    border-radius: $fs + 2px;
+    
+    height: $fs + 2px;
+    width: $fs + 2px;
+  
+    position: relative;
+    margin: 0px 30px;
+    padding: 0;
+
+    overflow: hidden;
+      
+    cursor: pointer;
+
+    &:hover {
+      color: transparentize(white, 0.2);
+    }
+    &:focus {
+      color: transparentize(white, 0.2);
+      outline: none;
+    }
+    &:active {
+      color: white;
+    }
+  }
+  &__buttons-next {
+  }
+}

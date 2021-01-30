@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="ru">
+  <meta charset='utf-8'>
+  <title>Calendar</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="assets/styles/css/style.css">
+</head>
+<body>
+  <section class="calendar-section">
+    <div class="calendar">
+      <div class="calendar__head">
+        <h1 class="calendar__head-caption">Календарь для создания и хранения событий</h1>
+        <div class="calendar__head-month-selection">
+          <span class="calendar__head-month-selection-prev icon-circle-left"></span>
+          <span class="calendar__head-month-selection-selected"></span>
+          <span class="calendar__head-month-selection-next icon-circle-right"></span>
+        </div>
+      </div>
+      <div class="calendar__body calendar__body_five-weaks">
+        <div class="calendar__body-head">
+            <div class="calendar__body-head-day-name">Понедельник</div>
+            <div class="calendar__body-head-day-name">Вторник</div>
+            <div class="calendar__body-head-day-name">Среда</div>
+            <div class="calendar__body-head-day-name">Четверг</div>
+            <div class="calendar__body-head-day-name">Пятница</div>
+            <div class="calendar__body-head-day-name">Суббота</div>
+            <div class="calendar__body-head-day-name">Воскресенье</div>
+        </div>
+      </div>
+      <div class="calendar__foot">
+        <button class="calendar__foot-add-btn btn">
+          <span>Добавить событие</span>
+          <span class="icon-add-outline"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal modal_hidden" id="add-event-block-modal">
+    <div class="add-event-block">
+      <h2 class="add-event-block__title">Добавить событие</h2>
+      <form class="add-event-block__form" action="#">
+        <div class="add-event-block__form-field">
+          <label for="event-date">Дата события</label>
+          <input
+            class="add-event-block__form-field-input"
+            type="text"
+            placeholder="dd.mm.yyyy"
+            name="event-date"
+            autocomplete="off"
+            required
+          >
+        </div>
+  
+        <div class="add-event-block__form-field">
+          <label for="event-time">Время события</label>
+          <input
+            class="add-event-block__form-field-input"
+            type="text"
+            placeholder="hh:mm"
+            name="event-time"
+            autocomplete="off"
+            required
+          >
+        </div>
+  
+        <div class="add-event-block__form-field">
+          <label for="event-name">Название события</label>
+          <input
+            class="add-event-block__form-field-input"
+            type="text"
+            placeholder="название события"
+            name="event-name"
+            autocomplete="off"
+            required
+          >
+        </div>
+  
+        <div class="add-event-block__form-buttons">
+          <button type="submit" class="add-event-block__form-buttons-ok btn">
+            <span class="icon-checkmark"></span>
+          </button>
+          <button type="button" class="modal__close-element add-event-block__form-buttons-cancel btn">
+            <span class="icon-cross"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal modal_with-close-area modal_hidden" id="events-block-modal">
+    <div class="modal__content events-block">
+      <h2 class="events-block__title">Список событий</h2>
+      <div class="events-block__list"></div>
+      <div class="events-block__buttons">
+        <button class="events-block__buttons-prev btn">
+          <span class="icon-arrow-left"></span>
+        </button>
+
+        <button class="modal__close-element events-block__buttons-add">
+          <span class="icon-add-outline"></span>
+        </button>
+
+        <button class="events-block__buttons-next btn">
+          <span class="icon-arrow-right"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal_hidden" id="confirm-modal">
+    <div class="modal__content confirm-block">
+      <p class="confirm-block__message">Вы точно уверены?</p>
+      <div class="confirm-block__buttons">
+        <button type="submit" class="modal__close-element confirm-block__buttons-ok btn">
+          <span class="icon-checkmark"></span>
+        </button>
+        <button type="button" class="modal__close-element confirm-block__buttons-cancel btn">
+          <span class="icon-cross"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="assets/js/entities/event-entity.js"></script>
+  <script type="text/javascript" src="assets/js/services/storage-service.js"></script>
+  <script type="text/javascript" src="assets/js/components/modal.js"></script>
+  <script type="text/javascript" src="assets/js/factories/calendar-element-factory.js"></script>
+  <script type="text/javascript" src="assets/js/components/calendar.js"></script>
+  <script type="text/javascript" src="assets/js/components/add-event-block.js"></script>
+  <script type="text/javascript" src="assets/js/factories/events-block-element-factory.js"></script>
+  <script type="text/javascript" src="assets/js/components/events-block.js"></script>
+  <script type="text/javascript" src="assets/js/components/confirm-block.js"></script>
+</body>
+</html>

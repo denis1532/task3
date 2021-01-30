@@ -1,0 +1,130 @@
+@import '../constants.scss';
+
+$calendar-body-height: 500px;
+$calendar-body-head-height: 40px;
+$calendar-body-weeks-height: $calendar-body-height - $calendar-body-head-height;
+
+.calendar {
+	padding: 20px;
+  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
+
+  user-select: none;
+  
+  &__head {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0px 20px 30px;
+
+    font-weight: 300;
+  }
+  &__head-caption {
+    font-size: 30px;
+    font-weight: 300;
+  }
+  &__head-month-selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 200px;
+
+    font-size: 20px;
+    line-height: 30px;
+  }
+  &__head-month-selection-current {
+  }
+  &__head-month-selection-next,
+  &__head-month-selection-prev {
+    font-size: 16px;
+    cursor: pointer;
+  }
+  &__body {
+    border: 1px solid white;
+    border-radius: 20px;
+
+    height: $calendar-body-height;
+    overflow: hidden;
+
+    font-size: 20px;
+
+    &.calendar__body_four-weaks {
+      .calendar__body-week {
+        height: $calendar-body-weeks-height / 4;
+      }
+    }
+    &.calendar__body_five-weaks {
+      .calendar__body-week {
+        height: $calendar-body-weeks-height / 5;
+      }
+    }
+    &.calendar__body_six-weaks {
+      .calendar__body-week {
+        height: $calendar-body-weeks-height / 6;
+      }
+    }
+  }
+  &__body-head {
+    display: flex;
+
+    background: transparentize(white, 0.75);
+
+    height: $calendar-body-head-height;
+    
+    text-align: center;
+  }
+  &__body-head-day-name {
+    flex-basis: calc(100% / 7);
+
+    font-size: 16px;
+    line-height: $calendar-body-head-height;
+    font-weight: 500;
+  }
+  &__body-week {
+    display: flex;
+  }
+  &__body-week-day {
+    flex-basis: calc(100% / 7);
+    padding: 10px;
+
+    border-top: 1px solid white;
+
+    font-weight: 300;
+
+    & + & {
+      border-left: 1px solid white;
+    }
+    &.calendar__body-week-day_current, &:hover {
+      background: transparentize(white, 0.75);
+      cursor: pointer;
+    }
+  }
+  &__foot {
+    padding: 15px 20px 0px;
+  }
+  &__foot-add-btn {
+    position: relative;
+
+    width: 200px;
+    
+    font-size: 16px;
+    text-align: start;
+
+    & > .icon-add-outline {
+      position: absolute;
+      top: 7px;
+      right: 10px;
+
+      font-size: 22px;
+    }
+  }
+  &.calendar_first-theme {
+
+  }
+  &.calendar_second-theme {
+    
+  }
+  &.calendar_third-theme {
+
+  }
+}

@@ -1,0 +1,25 @@
+.btn {
+  appearance: none;
+
+  padding: 8px 16px;
+  border: 1px solid white;
+  border-radius: 5px;
+    
+  background: none;
+  color: #fff;
+
+  font-family: inherit;
+    
+  cursor: pointer;
+
+  &:hover {
+    background: transparentize(white, 0.75);
+  }
+  &:focus {
+    outline: none;
+    background: transparentize(white, 0.75);
+  }
+  &:active {
+    background: transparentize(white, 0.85);
+  }
+}

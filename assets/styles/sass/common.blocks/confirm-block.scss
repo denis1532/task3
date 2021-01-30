@@ -1,0 +1,31 @@
+@import '../constants.scss';
+
+.confirm-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  
+  width: 200px;
+
+  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
+  border: 2px solid white;
+  border-radius: 10px;
+  
+  font-weight: 300;
+  text-align: center;
+
+  user-select: none;
+
+  &__message {
+    font-size: 16px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+
+    width: 100px;
+  }
+}

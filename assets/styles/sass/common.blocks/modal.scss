@@ -1,0 +1,39 @@
+@import '../constants.scss';
+
+.modal {
+  position: fixed;
+  z-index: $modal-z-index;
+  top: 0px;
+  left: 0px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: transparentize(black, 0.6);
+
+  &__content {
+    z-index: $modal-z-index + 2;
+  }
+  &__close-element {
+  }
+  
+  &.modal_hidden {
+    display: none;
+  }
+  &.modal_with-close-area {
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: $modal-z-index + 1;
+
+      display: block;
+
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+}

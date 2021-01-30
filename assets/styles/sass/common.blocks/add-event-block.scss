@@ -1,0 +1,99 @@
+@import '../constants.scss';
+
+.add-event-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  width: 400px;
+
+  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
+  border: 2px solid white;
+  border-radius: 10px;
+  
+  font-weight: 300;
+
+  user-select: none;
+  
+  &__title {
+    margin: 0px 0px 40px;
+
+    font-size: 30px;
+    font-weight: 400;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    font-size: 12px;
+  }
+  &__form-field {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0px 0px 20px;
+
+    border-bottom: 2px solid transparentize(white, 0.5);
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: all 0.5s;
+    }
+    &.add-event-block__form-field_active:before {
+      width: 100%;
+    }
+    &.add-event-block__form-field_hidden {
+      display: none;
+    }
+    &.add-event-block__form-field_invalid {
+      color: yellow;
+      border-bottom-color: yellow;
+
+      &:before {
+        background: yellow;
+        transition: none;
+      }
+    }
+  }
+  &__form-field-input {
+    outline: none;
+    background: none;
+    border: none;
+    padding: 10px;
+
+    width: 300px;
+    
+    color: white;
+    
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 300;
+
+    &::placeholder {
+      color: transparentize(white, 0.3);
+
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+  &__form-buttons {
+    align-self: center;
+    margin: 20px 0px 0px;
+  }
+  &__form-buttons-ok {
+  }
+  &__form-buttons-cancel {
+  }
+}
