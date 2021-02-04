@@ -1,5 +1,5 @@
 /**
- * The class for initializing a modal block.
+ * The class for initializing a modal.
  */
 class Modal {
   /**
@@ -25,22 +25,32 @@ class Modal {
       this.modal.classList.toggle('modal_hidden', true);
     });
   }
+}
 
-  /**
-   * @param {Map<String, Object>} options
-   */
-  static showModal (modalId, options = new Map()) {
-    let modal = document.getElementById(modalId);
-    if (modal.classList.contains('modal')) {
-      modal.dispatchEvent(new CustomEvent('show-modal'));
-  
-      if (options.get('callback')) {
-        options.get('callback')(modal);
-      }
-      
-      if (!(options.get('zIndex') == null)) {
-        modal.style.zIndex = options.zIndex;
-      }
+/**
+ * @param {Map<String, Object>} options
+ */
+Modal.showModal = (modalId, options = new Map()) => {
+  let modal = document.getElementById(modalId);
+  if (modal.classList.contains('modal')) {
+    modal.dispatchEvent(new CustomEvent('show-modal'));
+
+    if (options.get('callback')) {
+      options.get('callback')(modal);
+    }
+  }
+}
+
+/**
+ * @param {Map<String, Object>} options
+ */
+Modal.hideModal = (modalId, options = new Map()) => {
+  let modal = document.getElementById(modalId);
+  if (modal.classList.contains('modal')) {
+    modal.dispatchEvent(new CustomEvent('hide-modal'));
+
+    if (options.get('callback')) {
+      options.get('callback')(modal);
     }
   }
 }

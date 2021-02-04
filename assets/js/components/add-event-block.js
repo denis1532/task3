@@ -8,6 +8,10 @@ class AddEventBlock {
   constructor(addEventBlock) {
     this.addEventBlock = addEventBlock;
 
+    this.addEventBlock.addEventListener('set-default', (event) => {
+      this.setDefaultState();
+    });
+
     this.addEventBlock.addEventListener('click', (event) => {
       if (event.target.closest('.add-event-block__form-buttons-ok')) {
         let fields = this.addEventBlock.getElementsByClassName('add-event-block__form-field');
@@ -17,6 +21,29 @@ class AddEventBlock {
       }
       if (event.target.closest('.add-event-block__form-buttons-cancel')) {
         let form = event.target.closest('.add-event-block__form');
+        
+        // this will be found if the form is opened from .events-block
+        let input = form.querySelector(`
+          .add-event-block__form-field_hidden
+          .add-event-block__form-field-input[name="event-date"]
+        `);
+
+        if (input) {
+          let [ yearStr, monthStr, dayStr ] = this._changeDateFormat(input.value).split('-');
+          let date = new Date(
+            Number.parseInt(yearStr),
+            Number.parseInt(monthStr) - 1,
+            Number.parseInt(dayStr),
+            0, 0, 0, 0
+          );
+
+          Modal.showModal('events-block-modal');
+
+          history.pushState({ path: `calendar/date/${date.getTime()}` }, '');
+        } else {
+          history.pushState({ path: 'calendar' }, '');
+        }
+        
         form.reset();
 
         this.setDefaultState();
@@ -55,15 +82,39 @@ class AddEventBlock {
         eventDatetime.setMonth(Number.parseInt(monthStr) - 1, Number.parseInt(dayStr));
         eventDatetime.setHours(Number.parseInt(hoursStr), Number.parseInt(minutesStr), 0, 0);
 
-        let newEvent = new EventEntity(eventDatetime, eventName);
-        StorageService.saveEvent(newEvent);
+        EventService.saveEvent(new EventEntity(eventDatetime, eventName));
+
+        let form = event.target.closest('.add-event-block__form');
+        
+        // this will be found if the form is opened from .events-block
+        let input = form.querySelector(`
+          .add-event-block__form-field_hidden
+          .add-event-block__form-field-input[name="event-date"]
+        `);
+
+        if (input) {
+          let date = new Date(eventDatetime);
+          date.setHours(0, 0, 0, 0);
+
+          let initializeEventsBlock = (modal) => {
+            let eventsBlock = modal.querySelector('.events-block');
+            eventsBlock.dispatchEvent(new CustomEvent('init'));
+          }
+
+          Modal.showModal('events-block-modal', new Map([
+            [ 'callback', initializeEventsBlock ]
+          ]));
+
+          history.pushState({ path: `calendar/date/${date.getTime()}` }, '');
+        } else {
+          history.pushState({ path: 'calendar' }, '');
+        }
 
         form.reset();
 
         this.setDefaultState();
 
-        let hideModalEvent = new CustomEvent('hide-modal', { bubbles: true });
-        this.addEventBlock.dispatchEvent(hideModalEvent);
+        Modal.hideModal('add-event-block-modal');
       } else {
         if (isCorrectDate == false) {
           let input = event.target.querySelector('.add-event-block__form-field-input[name="event-date"]');
@@ -136,7 +187,6 @@ class AddEventBlock {
 
       return date.getFullYear() == year && date.getMonth() == month - 1 && date.getDate() == day;
     }
-    console.log(1)
     return false;
   }
 
@@ -150,8 +200,11 @@ class AddEventBlock {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let addEventBlocks = document.getElementsByClassName('add-event-block');
-  for (let addEventBlock of addEventBlocks) {
-    new AddEventBlock(addEventBlock);
-  }
+  new AddEventBlock(document.querySelector('.add-event-block'));
+
+  let addEventBlockModal = document.getElementById('add-event-block-modal');
+  addEventBlockModal.addEventListener('hide-modal', (event) => {
+    let addEventBlock = addEventBlockModal.querySelector('.add-event-block');
+    addEventBlock.dispatchEvent(new CustomEvent('set-default'));
+  });
 });

@@ -1,13 +1,8 @@
-@import '../constants.scss';
-
 $calendar-body-height: 500px;
 $calendar-body-head-height: 40px;
 $calendar-body-weeks-height: $calendar-body-height - $calendar-body-head-height;
 
 .calendar {
-	padding: 20px;
-  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
-
   user-select: none;
   
   &__head {

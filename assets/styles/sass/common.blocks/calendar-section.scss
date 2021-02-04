@@ -1,3 +1,81 @@
+@import '../constants.scss';
+
+@mixin set-calendar-section-theme($first-circle-color, $second-circle-color) {
+  background: linear-gradient(135deg, $first-circle-color, $second-circle-color);
+}
+
+@mixin set-circle-theme($first-circle-color, $second-circle-color) {
+  .calendar-section__theme-select-option-circle:nth-child(1) {
+    background: $first-circle-color;
+  }
+  .calendar-section__theme-select-option-circle:nth-child(2) {
+    background: $second-circle-color;
+  }
+}
+
+$circle-diameter: 40px;
+
 .calendar-section {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
   min-height: 100vh;
+
+  &__calendar {
+    width: 100%;
+  }
+  &__theme-select {
+    margin-left: 20px;
+  }
+  &__theme-select-selected-option,
+  &__theme-select-option {
+    &[data-value="theme-1"] {
+      @include set-circle-theme($first-main-color-for-theme-1, $second-main-color-for-theme-1);
+    }
+    &[data-value="theme-2"] {
+      @include set-circle-theme($first-main-color-for-theme-2, $second-main-color-for-theme-2);
+    }
+    &[data-value="theme-3"] {
+      @include set-circle-theme($first-main-color-for-theme-3, $second-main-color-for-theme-3);
+    }
+    &[data-value="theme-4"] {
+      @include set-circle-theme($first-main-color-for-theme-4, $second-main-color-for-theme-4);
+    }
+    &[data-value="theme-5"] {
+      @include set-circle-theme($first-main-color-for-theme-5, $second-main-color-for-theme-5);
+    }
+  }
+  &__theme-select-option {
+  }
+  &__theme-select-option-content {
+    display: flex;
+  }
+  &__theme-select-option-circle {
+    height: $circle-diameter;
+    width: $circle-diameter;
+
+    border: 1px solid white;
+    border-radius: $circle-diameter / 2;
+
+    & + & {
+      margin-left: 5px;
+    }
+  }
+
+  &.calendar-section_theme-1 {
+    @include set-calendar-section-theme($first-main-color-for-theme-1, $second-main-color-for-theme-1);
+  }
+  &.calendar-section_theme-2 {
+    @include set-calendar-section-theme($first-main-color-for-theme-2, $second-main-color-for-theme-2);
+  }
+  &.calendar-section_theme-3 {
+    @include set-calendar-section-theme($first-main-color-for-theme-3, $second-main-color-for-theme-3);
+  }
+  &.calendar-section_theme-4 {
+    @include set-calendar-section-theme($first-main-color-for-theme-4, $second-main-color-for-theme-4);
+  }
+  &.calendar-section_theme-5 {
+    @include set-calendar-section-theme($first-main-color-for-theme-5, $second-main-color-for-theme-5);
+  }
 }

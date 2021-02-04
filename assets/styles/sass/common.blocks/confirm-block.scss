@@ -1,5 +1,3 @@
-@import '../constants.scss';
-
 .confirm-block {
   display: flex;
   flex-direction: column;
@@ -8,7 +6,6 @@
   
   width: 200px;
 
-  background: linear-gradient(135deg, $first-main-color-for-theme-1, $second-main-color-for-theme-1);
   border: 2px solid white;
   border-radius: 10px;
   

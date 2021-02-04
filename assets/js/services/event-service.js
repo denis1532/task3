@@ -1,10 +1,10 @@
-class StorageService {}
+class EventService {}
 
 /**
  * @param {EventEntity} event 
  */
-StorageService.saveEvent = (event) => {
-  let events = StorageService.getEventsByDate(event.datetime.toLocaleDateString('fr-CH'));
+EventService.saveEvent = (event) => {
+  let events = EventService.getEventsByDate(event.datetime.toLocaleDateString('fr-CH'));
   events.push(event);
   events.sort(EventEntity.compareTo);
   
@@ -14,9 +14,9 @@ StorageService.saveEvent = (event) => {
 /**
  * @param {EventEntity} removedEvent 
  */
-StorageService.removeEvent = (removedEvent) => {
-  let events = StorageService.getEventsByDate(removedEvent.datetime.toLocaleDateString('fr-CH'));
-  let index = events.find(event => EventEntity.compareTo(event, removedEvent) == 0);
+EventService.removeEvent = (removedEvent) => {
+  let events = EventService.getEventsByDate(removedEvent.datetime.toLocaleDateString('fr-CH'));
+  let index = events.findIndex(event => EventEntity.compareTo(event, removedEvent) == 0);
 
   if (index == -1) return;
   
@@ -29,7 +29,7 @@ StorageService.removeEvent = (removedEvent) => {
  * 
  * @returns {EventEntity[]}
  */
-StorageService.getEventsByDate = (date) => {
+EventService.getEventsByDate = (date) => {
   let JSONListOfEvents = date instanceof Date
     ? localStorage.getItem(date.toLocaleDateString('fr-CH'))
     : localStorage.getItem(date)

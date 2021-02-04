@@ -11,8 +11,5 @@ class ConfirmBlock {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let confirmBlocks = document.getElementsByClassName('confirm-block');
-  for (let confirmBlock of confirmBlocks) {
-    new ConfirmBlock(confirmBlock);
-  }
+  new ConfirmBlock(document.getElementsByClassName('confirm-block'));
 });

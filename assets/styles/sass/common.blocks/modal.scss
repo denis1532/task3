@@ -1,5 +1,11 @@
 @import '../constants.scss';
 
+@mixin set-modal-theme($first-circle-color, $second-circle-color) {
+  .modal__content {
+    background: linear-gradient(135deg, $first-circle-color, $second-circle-color);
+  }
+}
+
 .modal {
   position: fixed;
   z-index: $modal-z-index;
@@ -35,5 +41,20 @@
       width: 100vw;
       height: 100vh;
     }
+  }
+  &.modal_theme-1 {
+    @include set-modal-theme($first-main-color-for-theme-1, $second-main-color-for-theme-1);
+  }
+  &.modal_theme-2 {
+    @include set-modal-theme($first-main-color-for-theme-2, $second-main-color-for-theme-2);
+  }
+  &.modal_theme-3 {
+    @include set-modal-theme($first-main-color-for-theme-3, $second-main-color-for-theme-3);
+  }
+  &.modal_theme-4 {
+    @include set-modal-theme($first-main-color-for-theme-4, $second-main-color-for-theme-4);
+  }
+  &.modal_theme-5 {
+    @include set-modal-theme($first-main-color-for-theme-5, $second-main-color-for-theme-5);
   }
 }

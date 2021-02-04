@@ -22,7 +22,6 @@ class EventsBlock {
       if (event.target.closest('.events-block__list-element-info-delete-btn')) {
         let btn = event.target.closest('.events-block__list-element-info-delete-btn');
 
-        let parentModal = this.eventsBlock.closest('.modal');
         let callback = (modal) => {
           modal.addEventListener('click', function cb(event) {
             if (event.target.closest('.confirm-block__buttons-ok')) {
@@ -37,40 +36,40 @@ class EventsBlock {
 
         let options = new Map([
           [ 'callback', callback ],
-          [ 'zIndex', parentModal?.style.zIndex || null ],
         ]);
         Modal.showModal('confirm-modal', options);
       } else if (event.target.closest('.events-block__buttons-add')) {
-        let callback = (modal) => {
-          let inputs = modal.getElementsByClassName('add-event-block__form-field-input');
-          for (let input of inputs) {
-            if (input.name == 'event-date') {
-              input.setAttribute('value', (this.eventsBlock.date).toLocaleDateString('fr-CH'));
-              
-              let eventDateField = input.closest('.add-event-block__form-field');
-              eventDateField.classList.toggle('add-event-block__form-field_hidden', true);
+        Modal.hideModal('events-block-modal');
 
-              break;
-            }
-          }
+        let initializeForm = (modal) => {
+          let input = modal.querySelector('.add-event-block__form-field-input[name="event-date"]');
+          input.setAttribute('value', (this.eventsBlock.date).toLocaleDateString('fr-CH'));
+              
+          let eventDateField = input.closest('.add-event-block__form-field');
+          eventDateField.classList.toggle('add-event-block__form-field_hidden', true);
         }
 
-        let options = new Map([
-          [ 'callback', callback ],
-        ]);
-        Modal.showModal('add-event-block-modal', options);
+        Modal.showModal('add-event-block-modal', new Map([
+          [ 'callback', initializeForm ],
+        ]));
+
+        history.pushState({ path: `calendar/add-event/${this.eventsBlock.date.getTime()}` }, '');
       } else if (event.target.closest('.events-block__buttons-prev')) {
         this.resetEventsBlock();
 
         this.toPrevDay();
 
         this.initEventsBlock();
+
+        history.pushState({ path: `calendar/date/${this.eventsBlock.date.getTime()}` }, '');
       } else if (event.target.closest('.events-block__buttons-next')) {
         this.resetEventsBlock();
 
         this.toNextDay();
 
         this.initEventsBlock();
+
+        history.pushState({ path: `calendar/date/${this.eventsBlock.date.getTime()}` }, '');
       }
     });
 
@@ -83,7 +82,7 @@ class EventsBlock {
         date.setHours(Number.parseInt(hours), Number.parseInt(minutes), 0, 0);
         
         let e = new EventEntity(date, listElement.getAttribute('data-name'));
-        StorageService.removeEvent(e)
+        EventService.removeEvent(e)
         
         listElement.remove();
       });
@@ -93,7 +92,7 @@ class EventsBlock {
   initEventsBlock() {
     if (this.eventsBlock.date == null) return;
 
-    let events = StorageService.getEventsByDate(this.eventsBlock.date);
+    let events = EventService.getEventsByDate(this.eventsBlock.date);
     let listElements = [];
     for (let event of events) {
       let listElement = this.elementFactory.getEventsBlockListElement(
@@ -107,7 +106,7 @@ class EventsBlock {
         datetime.setHours(Number.parseInt(hours), Number.parseInt(minutes), 0, 0);
         
         let e = new EventEntity(datetime, listElement.getAttribute('data-name'));
-        StorageService.removeEvent(e)
+        EventService.removeEvent(e)
         
         listElement.remove();
       });
@@ -137,8 +136,12 @@ class EventsBlock {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let eventsBlocks = document.getElementsByClassName('events-block');
-  for (let eventsBlock of eventsBlocks) {
-    new EventsBlock(eventsBlock);
-  }
+  new EventsBlock(document.querySelector('.events-block'));
+
+  let eventsBlockModal = document.getElementById('events-block-modal');
+  eventsBlockModal.addEventListener('click', (event) => {
+    if (event.target.classList.contains('modal_with-close-area')) {
+      history.pushState({ path: 'calendar' }, '');
+    }
+  });
 });

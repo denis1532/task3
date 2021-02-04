@@ -54,54 +54,49 @@ class Calendar {
       } else if (event.target.closest('.calendar__body-week-day')) {
         let day = event.target.closest('.calendar__body-week-day');
         if (day.textContent != '') {
-          let callback = (modal) => {
-            let eventsBlocks = modal.getElementsByClassName('events-block');
-            for (let eventsBlock of eventsBlocks) {
-              eventsBlock.date = new Date(this.firstDayOfSelectedMonth);
-              eventsBlock.date.setDate(Number.parseInt(day.textContent));
-              
-              eventsBlock.dispatchEvent(new CustomEvent('init'));
-            }
+          let initializeEventsBlock = (modal) => {
+            let eventsBlock = modal.querySelector('.events-block');
+            eventsBlock.date = new Date(this.firstDayOfSelectedMonth);
+            eventsBlock.date.setDate(Number.parseInt(day.textContent));
+            
+            eventsBlock.dispatchEvent(new CustomEvent('init'));
+
+            history.pushState({ path: `calendar/date/${eventsBlock.date.getTime()}` }, '');
           }
-          let options = new Map([
-            [ 'callback', callback ],
-          ]);
-          Modal.showModal('events-block-modal', options);
+
+          Modal.showModal('events-block-modal', new Map([
+            [ 'callback', initializeEventsBlock ],
+          ]));
         }
       } else if (event.target.closest('.calendar__foot-add-btn')) {
         Modal.showModal('add-event-block-modal');
+
+        history.pushState({ path: 'calendar/add-event' }, '');
       }
     });
   }
 
   initCalendar() {
-    let selectedMonthElements = this.calendar.getElementsByClassName('calendar__head-month-selection-selected');
-    for (let selectedMonthElement of selectedMonthElements) {
-      selectedMonthElement.innerHTML =
-        `${MONTH_NAMES[this.firstDayOfSelectedMonth.getMonth()]} ${this.firstDayOfSelectedMonth.getFullYear()}`;
-    }
+    let selectedMonthElement = this.calendar.querySelector('.calendar__head-month-selection-selected');
+    selectedMonthElement.innerHTML =
+      `${MONTH_NAMES[this.firstDayOfSelectedMonth.getMonth()]} ${this.firstDayOfSelectedMonth.getFullYear()}`;
 
-    let bodyElements = this.calendar.getElementsByClassName('calendar__body');
-    for (let i = 0; i < bodyElements.length; i++) {
-      let weeks = this.elementFactory.getBodyWeekElementsForSelectedMonth(
-        this.firstDayOfSelectedMonth.getMonth(),
-        this.firstDayOfSelectedMonth.getFullYear()
-      );
-      bodyElements[i].classList.add(calendarTypeByWeeksAmountMap.get(weeks.length));
-      bodyElements[i].append(...weeks);
-    }
+    let weeks = this.elementFactory.getBodyWeekElementsForSelectedMonth(
+      this.firstDayOfSelectedMonth.getMonth(),
+      this.firstDayOfSelectedMonth.getFullYear()
+    );
+
+    let bodyElement = this.calendar.querySelector('.calendar__body');
+    bodyElement.classList.add(calendarTypeByWeeksAmountMap.get(weeks.length));
+    bodyElement.append(...weeks);
   }
   
   resetCalendar() {
-    let selectedMonthElements = this.calendar.getElementsByClassName('calendar__head-month-selection-selected');
-    for (let i = 0; i < selectedMonthElements.length; i++) {
-      selectedMonthElements[i].innerHTML = '';
-    }
+    let selectedMonthElement = this.calendar.querySelector('.calendar__head-month-selection-selected');
+    selectedMonthElement.innerHTML = '';
   
-    let bodyElements = this.calendar.getElementsByClassName('calendar__body');
-    for (let i = 0; i < bodyElements.length; i++) {
-      bodyElements[i].className = 'calendar__body';
-    }
+    let bodyElement = this.calendar.querySelector('.calendar__body');
+    bodyElement.className = 'calendar__body';
   
     let weeks = this.calendar.getElementsByClassName('calendar__body-week');
     for (let i = weeks.length - 1; i >= 0; i--) {
@@ -119,8 +114,5 @@ class Calendar {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let calendars = document.getElementsByClassName('calendar');
-  for (let calendar of calendars) {
-    new Calendar(calendar);
-  }
+  new Calendar(document.querySelector('.calendar'));
 });
