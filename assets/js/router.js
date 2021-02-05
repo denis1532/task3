@@ -3,8 +3,6 @@ let EBENTS_BLOCK_IS_OPEN = false;
 class Router {
   render(path) {
     const partOfPath = path.split('/');
-
-    console.log(partOfPath)
     
     // there is only one element of partOfPath: partOfPath[0] == 'calendar'
     if (partOfPath.length == 1) return;

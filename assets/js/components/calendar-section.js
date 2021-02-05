@@ -31,8 +31,5 @@ class CalendarSection {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  let calendarSections = document.getElementsByClassName('calendar-section');
-  for (let calendarSection of calendarSections) {
-    new CalendarSection(calendarSection);
-  }
+  new CalendarSection(document.getElementsByClassName('calendar-section'));
 });

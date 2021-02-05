@@ -46,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     Modal.hideModal('events-block-modal');
     Modal.hideModal('confirm-modal');
     
-    if (event.state) {
-      router.render(event.state.path);
-    }
+    event.state && router.render(event.state.path);
   });
 });
