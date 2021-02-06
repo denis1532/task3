@@ -31,5 +31,5 @@ class CalendarSection {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  new CalendarSection(document.getElementsByClassName('calendar-section'));
+  new CalendarSection(document.querySelector('.calendar-section'));
 });
